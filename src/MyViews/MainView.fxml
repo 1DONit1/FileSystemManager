@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainViewCtrl">
+  <columnConstraints>
+    <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" prefWidth="800.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="-Infinity" prefHeight="550.0" vgrow="ALWAYS" />
+  </rowConstraints>
+   <children>
+      <VBox>
+         <children>
+            <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" VBox.vgrow="NEVER">
+               <children>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#returnAction" prefHeight="35.0" prefWidth="35.0" text=" ←" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Century" size="12.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="textOne" onKeyPressed="#enteredPathOne" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changePaths" prefHeight="35.0" prefWidth="35.0" text="⇆">
+                     <font>
+                        <Font name="Arial Narrow" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <TextField fx:id="textTwo" onKeyPressed="#enteredPathTwo" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="50.0">
+                     <children>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#searchFile" prefHeight="35.0" prefWidth="35.0" text="🔎">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#copyFile" prefHeight="35.0" prefWidth="35.0" text="🗐">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#moveFile" prefHeight="35.0" prefWidth="35.0" text="⏩">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createDirectory" prefHeight="35.0" prefWidth="35.0" text="+">
+                           <VBox.margin>
+                              <Insets bottom="6.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <TableView fx:id="tableViewOne" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selectedFocusOne" prefHeight="200.0" prefWidth="355.0" HBox.hgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="nameOne" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="263.0" text="Имя файла" />
+                      <TableColumn fx:id="sizeOne" maxWidth="1.7976931348623157E308" minWidth="92.0" prefWidth="92.0" text="Размер" />
+                    </columns>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </HBox.margin>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <TableView fx:id="tableViewTwo" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selectedFocusTwo" prefHeight="200.0" prefWidth="355.0" HBox.hgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="nameTwo" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="263.0" text="Имя файла" />
+                      <TableColumn fx:id="sizeTwo" maxWidth="1.7976931348623157E308" minWidth="92.0" prefWidth="92.0" text="Размер" />
+                    </columns>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </HBox.margin>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</GridPane>
