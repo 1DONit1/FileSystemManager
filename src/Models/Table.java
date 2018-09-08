@@ -1,7 +1,6 @@
 package Models;
 
 import Controllers.MainCtrl;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -13,9 +12,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.awt.Desktop;
@@ -29,6 +25,7 @@ public class Table {
     private TableColumn<FileInDir,String>fileSize;
     private String currentPath;
     private TextField textField;
+    private Table two;
 
     public Table(TableView tableView,TableColumn nameColumn, TableColumn sizeColumn, TextField textField, String currentPath){
         this.fileName = nameColumn;
@@ -40,6 +37,10 @@ public class Table {
         this.addEvent();
         this.updatePath(this.currentPath);
         this.tableView.setPlaceholder(new Label("Пусто!"));
+    }
+
+    public void setTwo(Table two) {
+        this.two = two;
     }
 
     private void initTable(){
@@ -92,13 +93,9 @@ public class Table {
                 if(event.getCode().equals(KeyCode.DELETE)){
                     try {
                         File file = new File(tableView.getSelectionModel().getSelectedItem().getFilePath());
-                        if (file.isDirectory()) {
-                            FileUtils.deleteDirectory(file);
-                        } else {
-                            FileUtils.deleteQuietly(file);
-                        }
-                        updatePath(currentPath);
-                    }catch (IOException e){
+                        ActionService myService = new ActionService(file,null,"Delete",getThis(),two);
+                        myService.start();
+                    }catch (Exception e){
                         MainCtrl.SendMessage(Alert.AlertType.ERROR,"Ошибка!","Ошибка удаления файла или директории!","Произошла ошибка при удалении файла или директории!"+"\n"+"Детали: "+e.getMessage());
                     }
                 }
@@ -108,27 +105,27 @@ public class Table {
     public void copyFile(String newPath){
         try{
             if(!tableView.getSelectionModel().isEmpty()){
-                File selectedFile = new File(this.tableView.getSelectionModel().getSelectedItem().getFilePath());
-                File newFile = new File(newPath);
-                FileUtils.copyToDirectory(selectedFile,newFile);
+               // File selectedFile = new File(this.tableView.getSelectionModel().getSelectedItem().getFilePath());
+                //File newFile = new File(newPath);
+                ActionService myService = new ActionService(new File(this.tableView.getSelectionModel().getSelectedItem().getFilePath()),new File(newPath),"Copy",this,this.two);
+                myService.start();
             }
-        }catch (IOException e){
+        }catch (Exception e){
+            e.printStackTrace();
             MainCtrl.SendMessage(Alert.AlertType.ERROR,"Ошибка!","Ошибка копирования файла или директории!","Произошла ошибка при копировании файла или директории в выбранное местоназначения!"+"\n"+"Детали: "+e.getMessage());
         }
     }
 
     public void  moveFile(String newPath){
         try{
-            if(!tableView.getSelectionModel().isEmpty()){
+            if(!tableView.getSelectionModel().isEmpty()) {
                 File selectedFile = new File(this.tableView.getSelectionModel().getSelectedItem().getFilePath());
                 File newFile = new File(newPath);
-                if(selectedFile.isDirectory()){
-                    FileUtils.moveDirectoryToDirectory(selectedFile,newFile,true);
-                } else{
-                    FileUtils.moveFileToDirectory(selectedFile,newFile,true);
-                }
+                ActionService myService = new ActionService(selectedFile,newFile,"Move",this,this.two);
+                myService.start();
             }
-        }catch (IOException e){
+        }catch (Exception e){
+            e.printStackTrace();
             MainCtrl.SendMessage(Alert.AlertType.ERROR,"Ошибка!","Ошибка перемещения файла или директории!","Произошла ошибка при перемещении файла или директории в выбранное местоназначения!"+"\n"+"Детали: "+e.getMessage());
         }
     }
@@ -151,8 +148,11 @@ public class Table {
             FileUtils.forceMkdir(file);
             this.updatePath(this.currentPath);
         }catch (Exception e){
+            e.printStackTrace();
             MainCtrl.SendMessage(Alert.AlertType.ERROR,"Ошибка!","Ошибка создания директории!","Произошла ошибка при создании директории в выбранном местоназначении!"+"\n"+"Детали: "+e.getMessage());
         }
     }
-
+    public Table getThis(){
+        return this;
+    }
 }

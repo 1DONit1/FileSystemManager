@@ -35,6 +35,8 @@ public class MainViewCtrl {
     @FXML public void initialize(){
         this.tableOne = new Table(this.tableViewOne,this.nameOne,this.sizeOne,this.textOne,this.defaultPath);
         this.tableTwo = new Table(this.tableViewTwo,this.nameTwo,this.sizeTwo,this.textTwo,this.defaultPath);
+        this.tableOne.setTwo(this.tableTwo);
+        this.tableTwo.setTwo(this.tableOne);
     }
 
 
